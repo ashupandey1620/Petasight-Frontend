@@ -15,8 +15,12 @@ export default function ChatBox({ email }: { email: string }) {
 
     try {
       const res = await sendMessage(msg, email)
+      if (!res.response) {
+        res.response = "Acknowledged"
+      }
+      
       const color = getColor(res.type, res.sentiment, msg)
-
+      
       setMessages((prev) => [
         ...prev,
         { text: res.response, color },
